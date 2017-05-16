@@ -1,9 +1,8 @@
-import {Component} from "@angular/core";
+import { Component } from "@angular/core";
 
-/** TODO */
+/** AppComponent */
 @Component({
-  selector: "app",
-  templateUrl: "./app.component.html",
+    selector: "my-app",
+    template: "Welcome to Angular 4",
 })
-export class AppComponent {
-}
+export class AppComponent { }

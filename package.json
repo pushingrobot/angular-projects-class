@@ -57,10 +57,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pushingrobot/angular4-seed.git"
+    "url": "git+https://github.com/pushingrobot/angular-projects-course.git"
   },
   "bugs": {
-    "url": "https://github.com/pushingrobot/angular4-seed/issues"
+    "url": "https://github.com/pushingrobot/angular-projects-course/issues"
   },
-  "homepage": "https://github.com/pushingrobot/angular4-seed#readme"
+  "homepage": "https://github.com/pushingrobot/angular-projects-course#readme"
 }
