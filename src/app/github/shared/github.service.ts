@@ -1,29 +1,40 @@
-import { Injectable } from '@angular/core';
-import { Http, URLSearchParams } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { Injectable } from "@angular/core";
+import { Http, Response, URLSearchParams } from "@angular/http";
+import { Observable } from "rxjs/observable";
 
-@Injectable()
+import "rxjs/add/operator/map";
+
+export interface IGitHubJSON {
+  name?: string;
+}
+
+/** TODO */
+@Injectable() // tslint:disable-line
 export class GithubService {
-  constructor(private http: Http) {}
+  public constructor(private http: Http) {}
 
-  getOrg(org: string) {
+  /** TODO */
+  public getOrg(org: string): Observable<IGitHubJSON> {
     return this.makeRequest(`orgs/${org}`);
   }
 
-  getReposForOrg(org: string) {
-    return this.makeRequest(`orgs/${org}/repos`);
-  }
-
-  getRepoForOrg(org: string, repo: string) {
+  /** TODO */
+  public getRepoForOrg(org: string, repo: string): Observable<IGitHubJSON> {
     return this.makeRequest(`repos/${org}/${repo}`);
   }
 
-  private makeRequest(path: string) {
-    let params = new URLSearchParams();
-    params.set('per_page', '100');
+  /** TODO */
+  public getReposForOrg(org: string): Observable<IGitHubJSON> {
+    return this.makeRequest(`orgs/${org}/repos`);
+  }
 
-    let url = `https://api.github.com/${ path }`;
+  /** TODO */
+  private makeRequest(path: string): Observable<IGitHubJSON> {
+    const url: string = `https://api.github.com/${ path }`;
+    const params: URLSearchParams = new URLSearchParams();
+    params.set("per_page", "100");
+
     return this.http.get(url, {search: params})
-      .map((res) => res.json());
+      .map((res: Response) => res.json() as IGitHubJSON );
   }
 }

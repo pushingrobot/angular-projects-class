@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 
+/** TODO */
 @Component({
   selector: "about",
   styleUrls: ["./about.component.css"],

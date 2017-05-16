@@ -1,22 +1,24 @@
-import './polyfills.browser';
+import "./polyfills.browser";
 
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModule } from './app/app.module';
+import { NgModuleRef, PlatformRef } from "@angular/core";
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { AppModule } from "./app/app.module";
 
-export const platformRef = platformBrowserDynamic();
+export const platformRef: PlatformRef = platformBrowserDynamic();
 
-export function main() {
+/** TODO */
+export function main(): void|Promise<NgModuleRef<AppModule>> {
   return platformRef.bootstrapModule(AppModule)
-    .catch(err => console.error(err));
+    .catch((err: Error) => { console.error(err); });
 }
 
-// support async tag or hmr
+// Support async tag or hmr
 switch (document.readyState) {
-  case 'interactive':
-  case 'complete':
+  case "interactive":
+  case "complete":
     main();
     break;
-  case 'loading':
+  case "loading":
   default:
-    document.addEventListener('DOMContentLoaded', () => main());
+    document.addEventListener("DOMContentLoaded", main);
 }
