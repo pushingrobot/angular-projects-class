@@ -48,9 +48,9 @@ app.get("/api/weather/:woeId", (req: express.Request, res: express.Response) => 
     });
 });
 
-// > app.get("*", function (req, res) {
-// >     res.sendFile(__dirname + "/../client/index.html");
-// > });
+app.get("*", (_: express.Request, res: express.Response) => {
+    res.sendFile(path.join(__dirname, "/../client/index.html"));
+});
 
 const server: http.Server = app.listen(app.get("port"), () => {
   const host: string = server.address().address;
