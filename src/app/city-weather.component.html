@@ -1,0 +1,9 @@
+<div class="weather-component" *ngIf="weatherExists(); then weatherTemplate else loadingTemplate">
+    <ng-template #weatherTemplate>
+        <h2>Current conditions in {{weather.city}}</h2>
+        <div class="weather">{{weather.temperature}}&deg;C <i class="wi wi-yahoo-{{weather-code}}"></i></div>
+    </ng-template>
+    <ng-template #loadingMessage>
+        <h2>Loading...</h2>
+    </ng-template>
+</div>

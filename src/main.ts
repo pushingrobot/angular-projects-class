@@ -3,6 +3,7 @@ import "./polyfills.browser";
 import { NgModule, PlatformRef } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { RouterModule } from "@angular/router";
 
 import { AppComponent } from "./app/app.component";
 import { CityListComponent } from "./app/city-list.component";
@@ -12,6 +13,7 @@ import { CityWeatherComponent } from "./app/city-weather.component";
 @NgModule({
     imports: [
         BrowserModule,
+        RouterModule,
     ],
     declarations: [
         AppComponent,
