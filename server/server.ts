@@ -32,20 +32,19 @@ app.get("/api/weather/:woeId", (req: express.Request, res: express.Response) => 
         `where%20woeid%3D${woeId}%20and%20u%3D'c'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`;
 
     return https.get(
-    {
-        host: "query.yahooapis.com",
-        path: requestPath,
-    },
-    (response: http.IncomingMessage): void => {
-        let body: string = "";
-        response.on("data", (d: string): void => {
-            body += d;
+        {
+            host: "query.yahooapis.com",
+            path: requestPath,
+        },
+        (response: http.IncomingMessage): void => {
+            let body: string = "";
+            response.on("data", (d: string): void => {
+                body += d;
+            });
+            response.on("end", (): void => {
+                res.status(STATUS_OK).send(JSON.parse(body));
+            });
         });
-        response.on("end", (): void => {
-            const parsed: {} = JSON.parse(body) as {};
-            res.status(STATUS_OK).send(parsed);
-        });
-    });
 });
 
 app.get("*", (_: express.Request, res: express.Response) => {

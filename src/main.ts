@@ -8,8 +8,6 @@ import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 import { routing } from "./app/app.routes";
 
 import { AppComponent } from "./app/app.component";
-import { CityListComponent } from "./app/city-list.component";
-import { CityWeatherComponent } from "./app/city-weather.component";
 
 /** TODO */
 @NgModule({
@@ -20,8 +18,6 @@ import { CityWeatherComponent } from "./app/city-weather.component";
     ],
     declarations: [
         AppComponent,
-        CityListComponent,
-        CityWeatherComponent,
     ],
     providers: [
     ],
