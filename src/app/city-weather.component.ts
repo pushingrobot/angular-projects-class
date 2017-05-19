@@ -6,11 +6,11 @@ interface ICityWeather {
     temperature: string;
 }
 
-/** CityListComponent */
+/** CityWeatherComponent */
 @Component({
     templateUrl: "./city-weather.component.html",
 })
-export class CityListComponent implements OnInit {
+export class CityWeatherComponent implements OnInit {
     /** Weather */
     public weather?: ICityWeather;
 
