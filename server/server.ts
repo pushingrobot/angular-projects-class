@@ -3,16 +3,24 @@ import * as express from "express";
 import * as compression from "compression";
 import * as cors from "cors";
 import * as http from "http";
-import * as https from "https";
 import * as path from "path";
+import * as socketIo from "socket.io";
+import * as Twit from "twit";
 
+process.on("uncaughtException", console.error);
 process.on("uncaughtException", console.error);
 
 const app: express.Express = express();
 const defaultPort: number = 4201;
-const STATUS_OK: number = 200;
-
 app.set("port", defaultPort);
+const server: http.Server = app.listen(app.get("port"), () => {
+  const host: string = server.address().address;
+  const port: number = server.address().port;
+
+  console.log("Example app listening at http://%s:%s", host, port);
+});
+const io: SocketIO.Server = socketIo(server);
+
 app.use(compression());
 app.use(cors());
 
@@ -25,35 +33,38 @@ app.use(express.static(path.join(__dirname, "/../public")));
 // >  res.send("hello world");
 // >});
 
-app.get("/api/weather/:woeId", (req: express.Request, res: express.Response) => {
-    const woeId: string|undefined = (req.params as {woeId?: string}).woeId;
-    const requestPath: string =
-        `/v1/public/yql?q=select%20item.condition.code%2C%20item.condition.temp%20from%20weather.forecast%20` +
-        `where%20woeid%3D${woeId}%20and%20u%3D'c'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys`;
+const twit: Twit = new Twit({
+    consumer_key: "LcBR3QydIFtnGUyvGogGeBPy5",
+    consumer_secret: "dOL6h56ISoBbFG2vwOQnJy6QwlPWzyYMjFcb81zbAeIBejyuuG",
+    access_token: "499080236-IQQ3uu1gncT1QYt0rQJTNs3O32zJGlo4Kqrp2NNk",
+    access_token_secret: "MnxXTBXjl3YAVocxAmC4P9er2YWSPLJ1JV9S39XGYUO2n",
+});
 
-    return https.get(
-        {
-            host: "query.yahooapis.com",
-            path: requestPath,
-        },
-        (response: http.IncomingMessage): void => {
-            let body: string = "";
-            response.on("data", (d: string): void => {
-                body += d;
-            });
-            response.on("end", (): void => {
-                res.status(STATUS_OK).send(JSON.parse(body));
-            });
+io.on("connection", (socket: SocketIO.Socket) => {
+    console.log("Connected to the stream!");
+
+    socket.on("stream", () => {
+        const twitter: Twit.StreamingAPIConnection = twit.stream("statuses/sample");
+
+        // Listen to the `connect` event.
+        twitter.on("connect", () => {
+            console.log("Streaming from the Twitter API...");
         });
-});
 
-app.get("*", (_: express.Request, res: express.Response) => {
-    res.sendFile(path.join(__dirname, "/../client/index.html"));
-});
+        // Emit an event with the Tweet information.
+        twitter.on("tweet", (tweet: {}) => {
+            io.sockets.emit("tweet", tweet);
+        });
 
-const server: http.Server = app.listen(app.get("port"), () => {
-  const host: string = server.address().address;
-  const port: number = server.address().port;
+        // Listen to the `disconnect`/`stop` events to destroy the connection.
+        socket.on("disconnect", () => {
+            console.log("Streaming ended (disconnected).");
+            twitter.stop();
+        });
 
-  console.log("Example app listening at http://%s:%s", host, port);
+        socket.on("stop", () => {
+            console.log("Streaming ended (stopped).");
+            twitter.stop();
+        });
+    });
 });

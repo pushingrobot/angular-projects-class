@@ -16,7 +16,8 @@
         "no-unsafe-any": true,
         "no-unused-variable": [false],
         "object-literal-sort-keys": false,
-        "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"]
+        "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
+        "prefer-function-over-method": false
     },
     "rulesDirectory": []
 }
