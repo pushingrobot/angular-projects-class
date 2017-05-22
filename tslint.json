@@ -10,6 +10,7 @@
             "ignore-module": "(\\.html|\\.css|\\.js|\\polyfills.browser|rxjs/.*|core-js/.*|zone.js/.*|ie-shim)$"
         }],
         "no-inferrable-types": [false],
+        "no-magic-numbers": [true, -2, -1, 0, 1, 2],
         // "no-null-keyword": false,
         "no-parameter-properties": false,
         "no-unbound-method": false,
@@ -17,7 +18,8 @@
         "no-unused-variable": [false],
         "object-literal-sort-keys": false,
         "only-arrow-functions": [true, "allow-declarations", "allow-named-functions"],
-        "prefer-function-over-method": false
+        "prefer-function-over-method": false,
+        "prefer-switch": [true, { "min-cases": 3 }]
     },
     "rulesDirectory": []
 }

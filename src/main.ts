@@ -1,38 +1,29 @@
 import "./polyfills.browser";
 
 import { NgModule, PlatformRef } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { HttpModule } from "@angular/http";
 import { BrowserModule } from "@angular/platform-browser";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
-import { routing } from "./app/app.routes";
-
 import { AppComponent } from "./app/app.component";
-import { BarGraphComponent } from "./app/bar-graph.component";
-import { LineGraphComponent } from "./app/line-graph.component";
-import { TweetList } from "./app/tweet-list.component";
+import { BoardComponent } from "./app/board.component";
+import { PieceComponent } from "./app/piece.component";
+import { StatusComponent } from "./app/status.component";
 
-import { MomentPipe } from "./app/moment.pipe";
-import { TweetFilterPipe } from "./app/tweet-filter.pipe";
+import { GameService } from "./app/game.service";
 
 /** TODO */
 @NgModule({
     imports: [
         BrowserModule,
-        FormsModule,
-        HttpModule,
-        routing,
     ],
     declarations: [
         AppComponent,
-        BarGraphComponent,
-        LineGraphComponent,
-        MomentPipe,
-        TweetFilterPipe,
-        TweetList,
+        BoardComponent,
+        PieceComponent,
+        StatusComponent,
     ],
     providers: [
+        GameService,
     ],
     bootstrap: [
         AppComponent,

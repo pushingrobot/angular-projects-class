@@ -1,0 +1,9 @@
+<div class="row status">
+    <div class="col-xs-12">
+        <span *ngIf="getWinner() == undefined">{{getTurn()}} to move</span>
+        <span *ngIf="getWinner() != undefined">
+            {{getWinner()}} wins!
+            <button class="btn btn-default" (click)="resetGame()">Play again</button>
+        </span>
+    </div>
+</div>

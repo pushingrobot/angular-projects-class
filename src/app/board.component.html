@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-xs-12">
+        <table class="board">
+            <tr *ngFor="let row of getPieces(); let rowIndex = index">
+                <td *ngFor="let piece of row; let columnIndex = index"
+                    class="square" (click)="onSelect(rowIndex, columnIndex)"
+                    [ngClass]="{dark: ((rowIndex + columnIndex) % 2 === 1), movable: isMovableSquare(rowIndex, columnIndex)}">
+                    <piece *ngIf="piece != undefined" [isKinged]="piece.getIsKinged()" [side]="piece.getSide()"></piece>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
